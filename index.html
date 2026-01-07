@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Engineering Converter</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="converter-card">
+        <h1>EngiConvert</h1>
+        
+        <select id="category">
+            <option value="length">Length (Distance)</option>
+            <option value="mass">Mass (Weight)</option>
+            <option value="temp">Temperature</option>
+        </select>
+
+        <div class="input-row">
+            <input type="number" id="fromInput" placeholder="Enter value">
+            <select id="fromUnit"></select>
+        </div>
+
+        <div class="input-row">
+            <input type="text" id="toInput" readonly placeholder="Result">
+            <select id="toUnit"></select>
+        </div>
+
+        <button id="saveBtn">Save to Favorites</button>
+        
+        <ul id="favoritesList"></ul>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
