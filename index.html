@@ -2,51 +2,51 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <title>Engineering Unit Converter</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Precision Engi-Convert</title>
+
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Roboto+Mono&display=swap" rel="stylesheet">
+
     <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Roboto+Mono&display=swap" rel="stylesheet">
 </head>
 <body>
-    <div class="main-wrapper">
-        <header>
-            <div class="status-bar">SYSTEM: ONLINE | PRECISION: HIGH</div>
-            <h1>CORE<span class="cyan-text">CONVERT</span></h1>
-        </header>
 
-        <div class="converter-box">
-            <div class="nav-tabs">
-                <button class="nav-link active" onclick="setCategory('length')">LENGTH</button>
-                <button class="nav-link" onclick="setCategory('mass')">MASS</button>
-                <button class="nav-link" onclick="setCategory('temp')">TEMP</button>
-            </div>
+<div class="app">
+    <header>
+        <h1>Engineering <span>Unit Converter</span></h1>
+        <p>Precision tools for modern engineers</p>
+    </header>
 
-            <div class="calc-panel">
-                <div class="field">
-                    <label>INPUT DATA</label>
-                    <input type="number" id="fromInput" placeholder="0.000" oninput="convert()">
-                    <select id="fromUnit" onchange="convert()"></select>
-                </div>
+    <div class="converter-box">
 
-                <div class="vector-line">
-                    <span>--- VECT ---</span>
-                </div>
-
-                <div class="field">
-                    <label>OUTPUT RESULT</label>
-                    <input type="text" id="toInput" placeholder="---" readonly>
-                    <select id="toUnit" onchange="convert()"></select>
-                </div>
-
-                <button class="action-btn" onclick="saveToFavs()">EXECUTE & SAVE</button>
-            </div>
-
-            <div class="data-log">
-                <h3>CONVERSION LOG</h3>
-                <ul id="historyList"></ul>
-            </div>
+        <div class="nav-tabs">
+            <button class="nav-link active" data-cat="length" onclick="setCategory('length')">Length</button>
+            <button class="nav-link" data-cat="mass" onclick="setCategory('mass')">Mass</button>
+            <button class="nav-link" data-cat="temp" onclick="setCategory('temp')">Temp</button>
         </div>
+
+        <label>FROM</label>
+        <input type="number" id="fromInput" placeholder="0" oninput="convert()">
+        <select id="fromUnit" onchange="convert()"></select>
+
+        <div class="swap">⇄</div>
+
+        <label>TO</label>
+        <input type="text" id="toInput" placeholder="0" readonly>
+        <select id="toUnit" onchange="convert()"></select>
+
+        <button class="action-btn" onclick="convert()">Convert</button>
+        <button class="save-btn" onclick="saveToHistory()">Save to Favorites</button>
+
+        <div class="history">
+            <h3>Conversion History</h3>
+            <ul id="historyList"></ul>
+        </div>
+
     </div>
-    <script src="script.js"></script>
+</div>
+
+<script src="script.js"></script>
 </body>
 </html>
