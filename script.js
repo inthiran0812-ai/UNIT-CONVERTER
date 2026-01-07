@@ -1,40 +1,52 @@
-// 1. Data: The math rules for conversions
-const conversionData = {
-    length: { meters: 1, kilometers: 1000, feet: 0.3048 },
-    mass: { kilograms: 1, grams: 0.001, pounds: 0.4535 }
+const units = {
+    length: { Meters: 1, Kilometers: 1000, Feet: 0.3048, Inches: 0.0254, Miles: 1609.34 },
+    mass: { Kilograms: 1, Grams: 0.001, Pounds: 0.453592, Ounces: 0.0283495 },
+    temp: { type: 'F' }
 };
 
-const category = document.getElementById('category');
-const fromUnit = document.getElementById('fromUnit');
-const toUnit = document.getElementById('toUnit');
-const fromInput = document.getElementById('fromInput');
-const toInput = document.getElementById('toInput');
+let activeCategory = 'length';
 
-// 2. Function: Update unit choices when category changes
-function updateUnits() {
-    const units = Object.keys(conversionData[category.value] || {Celsius:0, Fahrenheit:0});
-    fromUnit.innerHTML = units.map(u => `<option>${u}</option>`).join('');
-    toUnit.innerHTML = units.map(u => `<option>${u}</option>`).join('');
+function setCategory(cat) {
+    activeCategory = cat;
+    document.querySelectorAll('.nav-link').forEach(btn => {
+        btn.classList.remove('active');
+        if(btn.textContent.toLowerCase() === cat) btn.classList.add('active');
+    });
+
+    const options = cat === 'temp' ? ['Celsius', 'Fahrenheit', 'Kelvin'] : Object.keys(units[cat]);
+    document.getElementById('fromUnit').innerHTML = options.map(u => `<option>${u}</option>`).join('');
+    document.getElementById('toUnit').innerHTML = options.map(u => `<option>${u}</option>`).join('');
+    convert();
 }
 
-// 3. Function: Do the math
-function calculate() {
-    const val = parseFloat(fromInput.value);
-    if (isNaN(val)) return;
+function convert() {
+    const val = parseFloat(document.getElementById('fromInput').value);
+    const toField = document.getElementById('toInput');
+    if (isNaN(val)) { toField.value = ""; return; }
 
-    const cat = category.value;
-    const fromRate = conversionData[cat][fromUnit.value];
-    const toRate = conversionData[cat][toUnit.value];
+    const fromU = document.getElementById('fromUnit').value;
+    const toU = document.getElementById('toUnit').value;
 
-    // Formula: Value * (FromUnit / ToUnit)
-    toInput.value = (val * (fromRate / toRate)).toFixed(4);
+    if (activeCategory === 'temp') {
+        toField.value = runTemp(val, fromU, toU).toFixed(3);
+    } else {
+        const base = val * units[activeCategory][fromU];
+        toField.value = (base / units[activeCategory][toU]).toFixed(5);
+    }
 }
 
-// 4. Listeners: Watch for user typing
-category.onchange = updateUnits;
-fromInput.oninput = calculate;
-fromUnit.onchange = calculate;
-toUnit.onchange = calculate;
+function runTemp(v, f, t) {
+    let c = f === 'Celsius' ? v : f === 'Fahrenheit' ? (v-32)*5/9 : v-273.15;
+    return t === 'Celsius' ? c : t === 'Fahrenheit' ? (c*9/5)+32 : c+273.15;
+}
 
-// Start the page
-updateUnits();
+function saveToFavs() {
+    const res = document.getElementById('toInput').value;
+    if (!res) return;
+    const entry = `[LOG]: ${document.getElementById('fromInput').value}${document.getElementById('fromUnit').value.charAt(0)} -> ${res}${document.getElementById('toUnit').value.charAt(0)}`;
+    const li = document.createElement('li');
+    li.textContent = entry;
+    document.getElementById('historyList').prepend(li);
+}
+
+setCategory('length');

@@ -3,32 +3,49 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Engineering Converter</title>
+    <title>Precision Engi-Convert</title>
     <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Roboto+Mono&display=swap" rel="stylesheet">
 </head>
 <body>
-    <div class="converter-card">
-        <h1>EngiConvert</h1>
-        
-        <select id="category">
-            <option value="length">Length (Distance)</option>
-            <option value="mass">Mass (Weight)</option>
-            <option value="temp">Temperature</option>
-        </select>
+    <div class="main-wrapper">
+        <header>
+            <div class="status-bar">SYSTEM: ONLINE | PRECISION: HIGH</div>
+            <h1>CORE<span class="cyan-text">CONVERT</span></h1>
+        </header>
 
-        <div class="input-row">
-            <input type="number" id="fromInput" placeholder="Enter value">
-            <select id="fromUnit"></select>
+        <div class="converter-box">
+            <div class="nav-tabs">
+                <button class="nav-link active" onclick="setCategory('length')">LENGTH</button>
+                <button class="nav-link" onclick="setCategory('mass')">MASS</button>
+                <button class="nav-link" onclick="setCategory('temp')">TEMP</button>
+            </div>
+
+            <div class="calc-panel">
+                <div class="field">
+                    <label>INPUT DATA</label>
+                    <input type="number" id="fromInput" placeholder="0.000" oninput="convert()">
+                    <select id="fromUnit" onchange="convert()"></select>
+                </div>
+
+                <div class="vector-line">
+                    <span>--- VECT ---</span>
+                </div>
+
+                <div class="field">
+                    <label>OUTPUT RESULT</label>
+                    <input type="text" id="toInput" placeholder="---" readonly>
+                    <select id="toUnit" onchange="convert()"></select>
+                </div>
+
+                <button class="action-btn" onclick="saveToFavs()">EXECUTE & SAVE</button>
+            </div>
+
+            <div class="data-log">
+                <h3>CONVERSION LOG</h3>
+                <ul id="historyList"></ul>
+            </div>
         </div>
-
-        <div class="input-row">
-            <input type="text" id="toInput" readonly placeholder="Result">
-            <select id="toUnit"></select>
-        </div>
-
-        <button id="saveBtn">Save to Favorites</button>
-        
-        <ul id="favoritesList"></ul>
     </div>
     <script src="script.js"></script>
 </body>
