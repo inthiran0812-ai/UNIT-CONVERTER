@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <title>Engineering Unit Converter</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Roboto+Mono&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
@@ -17,7 +16,6 @@
     </header>
 
     <div class="converter-box">
-
         <div class="nav-tabs">
             <button class="nav-link active" data-cat="length">Length</button>
             <button class="nav-link" data-cat="mass">Mass</button>
@@ -28,10 +26,10 @@
         <input type="number" id="fromInput" placeholder="0">
         <select id="fromUnit"></select>
 
-        <div class="swap" id="swapBtn">⇄</div>
+        <div class="swap" id="swapBtn" title="Swap Units">⇄</div>
 
         <label>TO</label>
-        <input type="text" id="toInput" readonly>
+        <input type="text" id="toInput" readonly placeholder="Result">
         <select id="toUnit"></select>
 
         <button class="action-btn">Convert</button>
@@ -41,7 +39,6 @@
             <h3>Conversion History</h3>
             <ul id="historyList"></ul>
         </div>
-
     </div>
 </div>
 
