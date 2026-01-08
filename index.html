@@ -5,9 +5,7 @@
     <title>Engineering Unit Converter</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <!-- Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Roboto+Mono&display=swap" rel="stylesheet">
-
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -21,23 +19,23 @@
     <div class="converter-box">
 
         <div class="nav-tabs">
-            <button class="nav-link active" data-cat="length" onclick="setCategory('length')">Length</button>
-            <button class="nav-link" data-cat="mass" onclick="setCategory('mass')">Mass</button>
-            <button class="nav-link" data-cat="temp" onclick="setCategory('temp')">Temp</button>
+            <button class="nav-link active" data-cat="length">Length</button>
+            <button class="nav-link" data-cat="mass">Mass</button>
+            <button class="nav-link" data-cat="temp">Temp</button>
         </div>
 
         <label>FROM</label>
-        <input type="number" id="fromInput" placeholder="0" oninput="convert()">
-        <select id="fromUnit" onchange="convert()"></select>
+        <input type="number" id="fromInput" placeholder="0">
+        <select id="fromUnit"></select>
 
-        <div class="swap">⇄</div>
+        <div class="swap" id="swapBtn">⇄</div>
 
         <label>TO</label>
-        <input type="text" id="toInput" placeholder="0" readonly>
-        <select id="toUnit" onchange="convert()"></select>
+        <input type="text" id="toInput" readonly>
+        <select id="toUnit"></select>
 
-        <button class="action-btn" onclick="convert()">Convert</button>
-        <button class="save-btn" onclick="saveToHistory()">Save to Favorites</button>
+        <button class="action-btn">Convert</button>
+        <button class="save-btn">Save to Favorites</button>
 
         <div class="history">
             <h3>Conversion History</h3>

@@ -2,14 +2,9 @@
     --bg-main: #020617;
     --panel-bg: #0f172a;
     --accent-primary: #22d3ee;
-    --accent-secondary: #38bdf8;
     --border-color: #1e293b;
     --text-main: #e5e7eb;
     --text-muted: #94a3b8;
-}
-
-* {
-    box-sizing: border-box;
 }
 
 body {
@@ -22,39 +17,16 @@ body {
     padding: 40px 20px;
 }
 
-.app {
-    width: 100%;
-    max-width: 440px;
-}
+.app { max-width: 440px; width: 100%; }
 
-header {
-    text-align: center;
-    margin-bottom: 30px;
-}
-
-header h1 {
-    margin: 0;
-    font-size: 1.8rem;
-}
-
-header span {
-    color: var(--accent-primary);
-}
-
-header p {
-    margin-top: 6px;
-    color: var(--text-muted);
-    font-size: 0.95rem;
-}
+header { text-align: center; margin-bottom: 30px; }
+header span { color: var(--accent-primary); }
 
 .converter-box {
     background: linear-gradient(180deg, #0f172a, #020617);
     border: 1px solid var(--border-color);
     border-radius: 18px;
     padding: 28px;
-    box-shadow:
-        inset 0 0 20px rgba(34,211,238,0.05),
-        0 30px 60px rgba(0,0,0,0.7);
 }
 
 .nav-tabs {
@@ -67,28 +39,20 @@ header p {
 
 .nav-link {
     flex: 1;
-    border: none;
     background: transparent;
+    border: none;
     color: var(--text-muted);
     padding: 14px;
-    font-weight: 600;
-    border-radius: 10px;
     cursor: pointer;
-    transition: 0.25s;
 }
 
 .nav-link.active {
     background: linear-gradient(135deg, #22d3ee, #0ea5e9);
     color: #020617;
-    box-shadow: 0 0 18px rgba(34,211,238,0.7);
+    border-radius: 10px;
 }
 
-label {
-    display: block;
-    margin-bottom: 6px;
-    color: var(--text-muted);
-    font-size: 0.8rem;
-}
+label { font-size: 0.8rem; color: var(--text-muted); }
 
 input, select {
     width: 100%;
@@ -97,27 +61,15 @@ input, select {
     border: 1px solid var(--border-color);
     border-radius: 10px;
     color: var(--text-main);
-    font-size: 1rem;
     margin-bottom: 14px;
 }
 
-input:focus, select:focus {
-    outline: none;
-    border-color: var(--accent-primary);
-    box-shadow:
-        0 0 0 1px rgba(34,211,238,0.3),
-        0 0 12px rgba(34,211,238,0.5);
-}
-
-#toInput {
-    color: var(--accent-primary);
-    font-weight: 600;
-}
+#toInput { color: var(--accent-primary); font-weight: 600; }
 
 .swap {
     text-align: center;
+    cursor: pointer;
     font-size: 1.4rem;
-    color: var(--text-muted);
     margin: 10px 0;
 }
 
@@ -127,16 +79,8 @@ input:focus, select:focus {
     border: none;
     padding: 16px;
     border-radius: 12px;
-    color: #020617;
     font-weight: 700;
-    font-size: 1rem;
     cursor: pointer;
-    margin-top: 10px;
-    box-shadow: 0 10px 20px rgba(34,211,238,0.4);
-}
-
-.action-btn:hover {
-    transform: translateY(-1px);
 }
 
 .save-btn {
@@ -147,35 +91,10 @@ input:focus, select:focus {
     padding: 14px;
     border-radius: 10px;
     color: var(--text-muted);
-    cursor: pointer;
 }
 
-.save-btn:hover {
-    border-color: var(--accent-primary);
-    color: var(--accent-primary);
-}
-
-.history {
-    margin-top: 25px;
-}
-
-.history h3 {
-    font-size: 0.85rem;
-    color: var(--text-muted);
-    margin-bottom: 10px;
-}
-
-.history ul {
-    list-style: none;
-    padding: 0;
-    max-height: 120px;
-    overflow-y: auto;
-}
-
+.history { margin-top: 20px; }
 .history li {
     font-family: 'Roboto Mono', monospace;
     font-size: 0.75rem;
-    padding: 6px 0;
-    border-bottom: 1px dotted #1e293b;
-    color: #cbd5f5;
 }

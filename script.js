@@ -15,70 +15,65 @@ const units = {
     temp: ['Celsius', 'Fahrenheit', 'Kelvin']
 };
 
-const symbols = {
-    Meters: 'm',
-    Kilometers: 'km',
-    Feet: 'ft',
-    Inches: 'in',
-    Miles: 'mi',
-    Kilograms: 'kg',
-    Grams: 'g',
-    Pounds: 'lb',
-    Ounces: 'oz',
-    Celsius: '°C',
-    Fahrenheit: '°F',
-    Kelvin: 'K'
+let activeCategory = 'length';
+
+const fromInput = document.getElementById('fromInput');
+const toInput = document.getElementById('toInput');
+const fromUnit = document.getElementById('fromUnit');
+const toUnit = document.getElementById('toUnit');
+
+document.querySelectorAll('.nav-link').forEach(btn => {
+    btn.onclick = () => setCategory(btn.dataset.cat);
+});
+
+document.getElementById('swapBtn').onclick = () => {
+    [fromUnit.value, toUnit.value] = [toUnit.value, fromUnit.value];
+    convert();
 };
 
-let activeCategory = 'length';
+fromInput.oninput = convert;
+fromUnit.onchange = convert;
+toUnit.onchange = convert;
+
+document.querySelector('.action-btn').onclick = convert;
 
 function setCategory(cat) {
     activeCategory = cat;
 
-    document.querySelectorAll('.nav-link').forEach(btn => {
-        btn.classList.toggle('active', btn.dataset.cat === cat);
-    });
+    document.querySelectorAll('.nav-link').forEach(b =>
+        b.classList.toggle('active', b.dataset.cat === cat)
+    );
 
-    const from = document.getElementById('fromUnit');
-    const to = document.getElementById('toUnit');
-
-    const options = cat === 'temp'
-        ? units.temp
-        : Object.keys(units[cat]);
-
-    from.innerHTML = options.map(u => `<option>${u}</option>`).join('');
-    to.innerHTML = options.map(u => `<option>${u}</option>`).join('');
+    const options = cat === 'temp' ? units.temp : Object.keys(units[cat]);
+    fromUnit.innerHTML = toUnit.innerHTML =
+        options.map(u => `<option>${u}</option>`).join('');
 
     convert();
 }
 
 function convert() {
-    const value = parseFloat(document.getElementById('fromInput').value);
-    const output = document.getElementById('toInput');
+    const val = parseFloat(fromInput.value);
+    if (isNaN(val)) { toInput.value = ''; return; }
 
-    if (isNaN(value)) {
-        output.value = '';
+    if (fromUnit.value === toUnit.value) {
+        toInput.value = val.toFixed(activeCategory === 'temp' ? 2 : 5);
         return;
     }
-
-    const fromUnit = document.getElementById('fromUnit').value;
-    const toUnit = document.getElementById('toUnit').value;
 
     let result;
 
     if (activeCategory === 'temp') {
-        result = convertTemp(value, fromUnit, toUnit);
+        result = tempConvert(val, fromUnit.value, toUnit.value);
+        toInput.value = result.toFixed(2);
     } else {
-        const base = value * units[activeCategory][fromUnit];
-        result = base / units[activeCategory][toUnit];
+        const base = val * units[activeCategory][fromUnit.value];
+        result = base / units[activeCategory][toUnit.value];
+        toInput.value = result.toFixed(5);
     }
-
-    output.value = result.toFixed(5);
 }
 
-function convertTemp(v, f, t) {
+function tempConvert(v, f, t) {
     let c;
-
     if (f === 'Celsius') c = v;
     else if (f === 'Fahrenheit') c = (v - 32) * 5 / 9;
     else c = v - 273.15;
@@ -86,21 +81,6 @@ function convertTemp(v, f, t) {
     if (t === 'Celsius') return c;
     if (t === 'Fahrenheit') return (c * 9 / 5) + 32;
     return c + 273.15;
-}
-
-function saveToHistory() {
-    const fromVal = document.getElementById('fromInput').value;
-    const toVal = document.getElementById('toInput').value;
-
-    if (!fromVal || !toVal) return;
-
-    const fromUnit = document.getElementById('fromUnit').value;
-    const toUnit = document.getElementById('toUnit').value;
-
-    const li = document.createElement('li');
-    li.textContent = `${fromVal} ${symbols[fromUnit]} → ${toVal} ${symbols[toUnit]}`;
-
-    document.getElementById('historyList').prepend(li);
 }
 
 setCategory('length');
